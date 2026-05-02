@@ -1,0 +1,69 @@
+{
+  "name": "flex-table-vue",
+  "version": "0.1.2",
+  "description": "A flexible, feature-rich Vue 3 data table component with sorting, virtual scrolling, and interactive column management. Supports client-side and server-side sorting, drag-and-drop column reordering, per-column visibility and width controls, localStorage persistence of user preferences, and customizable text labels for i18n. Styled with Tailwind CSS and fully typed with TypeScript.",
+  "type": "module",
+  "main": "./dist/flex-table-vue.umd.cjs",
+  "module": "./dist/flex-table-vue.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/flex-table-vue.js",
+      "require": "./dist/flex-table-vue.umd.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build": "vite build && vue-tsc --emitDeclarationOnly --outDir dist --declaration --declarationDir dist",
+    "dev": "vite build --watch"
+  },
+  "peerDependencies": {
+    "vue": "^3.5.0"
+  },
+  "dependencies": {
+    "vuedraggable": "^4.1.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.2.4",
+    "typescript": "^5.9.3",
+    "vite": "^6.3.5",
+    "vue": "^3.5.13",
+    "vue-tsc": "^2.2.8"
+  },
+  "keywords": [
+    "vue",
+    "vue3",
+    "table",
+    "data-table",
+    "datatable",
+    "grid",
+    "sortable",
+    "sort",
+    "virtual-scroll",
+    "virtualized",
+    "drag-and-drop",
+    "column-reorder",
+    "column-settings",
+    "column-visibility",
+    "resizable-columns",
+    "tailwindcss",
+    "tailwind",
+    "typescript",
+    "dark-mode",
+    "i18n",
+    "component"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "homepage": "",
+  "bugs": {
+    "url": ""
+  }
+}
