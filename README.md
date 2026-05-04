@@ -26,6 +26,7 @@ npm install flex-table-vue
 
 - Vue 3.5+
 - Tailwind CSS 3+ configured in your project
+- `vuedraggable` is listed as a dependency of this package (used for column reordering); your bundler resolves it next to `flex-table-vue`.
 
 ## Usage
 
@@ -35,7 +36,7 @@ npm install flex-table-vue
 <script setup>
 import { ref } from 'vue'
 import { FlexTable } from 'flex-table-vue'
-import 'flex-table-vue/dist/flex-table-vue.css'
+import 'flex-table-vue/style.css'
 
 const headers = [
   { text: 'Name', value: 'name', sortable: true, width: 200 },
@@ -67,7 +68,7 @@ const sort = ref({ by: undefined, dir: 'asc' })
 ```ts
 import { createApp } from 'vue'
 import FlexTablePlugin from 'flex-table-vue'
-import 'flex-table-vue/dist/flex-table-vue.css'
+import 'flex-table-vue/style.css'
 import App from './App.vue'
 
 const app = createApp(App)
