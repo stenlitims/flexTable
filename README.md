@@ -29,6 +29,10 @@ npm install flex-table-vue
 - If the host app already uses Tailwind, you can keep your own setup for layouts and slot content; you typically **do not** need to add `node_modules/flex-table-vue` to Tailwind `content` for the library’s own markup.
 - Column reordering in the settings modal uses **SortableJS**, bundled in `flex-table-vue`.
 
+### Tailwind / PostCSS in the host app
+
+From **v0.1.8** onward, `style.css` is post-processed so **`@layer` blocks are removed** (rules stay the same). That avoids errors when the host app’s Tailwind v3 / PostCSS pipeline re-parses the file (e.g. `@layer base is used but no matching @tailwind base`). You can still import `flex-table-vue/style.css` like any global stylesheet.
+
 ## Usage
 
 ### Basic

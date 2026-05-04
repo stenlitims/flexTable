@@ -1,7 +1,7 @@
 {
   "name": "flex-table-vue",
-  "version": "0.1.7",
-  "description": "A flexible, feature-rich Vue 3 data table component with sorting, virtual scrolling, and interactive column management. Ships a pre-built Tailwind CSS bundle (flex-table-vue/style.css) so host apps do not need Tailwind content scanning for table markup. Supports client-side and server-side sorting, drag-and-drop column reordering (SortableJS), per-column visibility and width controls, localStorage persistence, and customizable text labels. Fully typed with TypeScript.",
+  "version": "0.1.8",
+  "description": "A flexible, feature-rich Vue 3 data table component with sorting, virtual scrolling, and interactive column management. Ships a pre-built CSS bundle (flex-table-vue/style.css): Tailwind v4 utilities compiled in-repo, then @layer blocks flattened for compatibility with host apps that run Tailwind v3 PostCSS on node_modules. Supports client-side and server-side sorting, drag-and-drop column reordering (SortableJS), per-column visibility and width controls, localStorage persistence, and customizable text labels. Fully typed with TypeScript.",
   "type": "module",
   "main": "./dist/flex-table-vue.umd.cjs",
   "module": "./dist/flex-table-vue.js",
@@ -24,7 +24,7 @@
   ],
   "scripts": {
     "dev": "vite",
-    "build": "vite build && vue-tsc --emitDeclarationOnly --outDir dist --declaration --declarationDir dist",
+    "build": "vite build && node scripts/unwrap-css-layers.mjs && vue-tsc --emitDeclarationOnly --outDir dist --declaration --declarationDir dist",
     "build:watch": "vite build --watch"
   },
   "peerDependencies": {
@@ -37,6 +37,7 @@
     "@tailwindcss/vite": "^4.2.4",
     "@types/sortablejs": "^1.15.9",
     "@vitejs/plugin-vue": "^5.2.4",
+    "postcss": "^8.5.13",
     "tailwindcss": "^4.2.4",
     "typescript": "^5.9.3",
     "vite": "^6.3.5",
