@@ -1,6 +1,6 @@
 {
   "name": "flex-table-vue",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "A flexible, feature-rich Vue 3 data table component with sorting, virtual scrolling, and interactive column management. Supports client-side and server-side sorting, drag-and-drop column reordering, per-column visibility and width controls, localStorage persistence of user preferences, and customizable text labels for i18n. Styled with Tailwind CSS and fully typed with TypeScript.",
   "type": "module",
   "main": "./dist/flex-table-vue.umd.cjs",
@@ -61,10 +61,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "git+https://github.com/stenlitims/flexTable.git"
   },
-  "homepage": "",
+  "homepage": "https://github.com/stenlitims/flexTable#readme",
   "bugs": {
-    "url": ""
+    "url": "https://github.com/stenlitims/flexTable/issues"
   }
 }

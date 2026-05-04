@@ -2,6 +2,8 @@
 
 A flexible, feature-rich Vue 3 data table component with sorting, virtual scrolling, and interactive column management. Built with Tailwind CSS and fully typed with TypeScript.
 
+**Repository:** [github.com/stenlitims/flexTable](https://github.com/stenlitims/flexTable) · **npm:** [flex-table-vue](https://www.npmjs.com/package/flex-table-vue)
+
 ## Features
 
 - **Sorting** — client-side and server-side sorting with configurable sort direction
