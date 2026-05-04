@@ -1,3 +1,5 @@
+import './flex-table.css'
+
 import type { App } from 'vue'
 import FlexTable from './components/FlexTable.vue'
 import FlexTableColumnSettings from './components/FlexTableColumnSettings.vue'

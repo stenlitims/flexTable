@@ -51,7 +51,7 @@ import { FlexTable } from 'flex-table-vue'
 import 'flex-table-vue/style.css'
 ```
 
-- Pass **`headers`** and **`items`**; use **`v-model:sort-table`** when sorting is needed.
+- Pass **`headers`** and **`items`**; use **`v-model:sort-table`** when sorting is needed. Import **`flex-table-vue/style.css`** once (includes all table/modal styles).
 - Set a stable **`table-id`** so column order, visibility, and widths persist via localStorage.
 - Use the **`texts`** prop for copy / i18n (empty state, column settings modal, buttons).
 - Use **`#cell-{value}`** / **`#header-{value}`** slots for non-trivial cells.
@@ -62,5 +62,5 @@ For full API, slots, server-side sorting, and virtual scroll options, read the p
 ## Checklist before finishing a new admin list
 
 - [ ] List uses `FlexTable` from `flex-table-vue` (or an approved project wrapper around it).
-- [ ] `flex-table-vue` CSS is imported once on the consuming route or app entry.
+- [ ] `flex-table-vue/style.css` is imported once (bundled Tailwind utilities for the library UI).
 - [ ] `table-id` is set when user preferences across sessions matter.

@@ -1,6 +1,6 @@
 # flex-table-vue
 
-A flexible, feature-rich Vue 3 data table component with sorting, virtual scrolling, and interactive column management. Built with Tailwind CSS and fully typed with TypeScript.
+A flexible, feature-rich Vue 3 data table component with sorting, virtual scrolling, and interactive column management. Styles ship as a pre-built CSS file (Tailwind compiled in-repo); fully typed with TypeScript.
 
 **Repository:** [github.com/stenlitims/flexTable](https://github.com/stenlitims/flexTable) · **npm:** [flex-table-vue](https://www.npmjs.com/package/flex-table-vue)
 
@@ -11,7 +11,7 @@ A flexible, feature-rich Vue 3 data table component with sorting, virtual scroll
 - **Column settings modal** — drag-and-drop reordering, per-column visibility toggle, and width controls
 - **LocalStorage persistence** — user preferences (column order, visibility, width) saved per table via `tableId`
 - **i18n-ready** — all UI text labels customizable via the `texts` prop
-- **Dark mode** — full dark theme support via Tailwind CSS `dark:` classes
+- **Bundled styles** — import `flex-table-vue/style.css` for all table/modal utilities (Tailwind is compiled inside the package; no need to add this library to your Tailwind `content` paths)
 - **Named slots** — `header-{value}` and `cell-{value}` slots for custom rendering
 - **TypeScript** — complete type definitions included
 - **Vue plugin** — register globally with `app.use()`
@@ -25,8 +25,9 @@ npm install flex-table-vue
 ### Requirements
 
 - Vue 3.5+
-- Tailwind CSS 3+ configured in your project
-- Column reordering in the settings modal uses **SortableJS**, bundled inside `flex-table-vue` (no separate `vuedraggable` install).
+- **Styling:** import `flex-table-vue/style.css` once (includes Tailwind Preflight and every utility class used by the components). You do **not** need Tailwind configured in the host app for the built-in table UI to look correct.
+- If the host app already uses Tailwind, you can keep your own setup for layouts and slot content; you typically **do not** need to add `node_modules/flex-table-vue` to Tailwind `content` for the library’s own markup.
+- Column reordering in the settings modal uses **SortableJS**, bundled in `flex-table-vue`.
 
 ## Usage
 

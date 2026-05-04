@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
+import tailwindcss from '@tailwindcss/vite'
 import { resolve } from 'path'
 
 export default defineConfig(({ command }) => {
@@ -7,7 +8,7 @@ export default defineConfig(({ command }) => {
     // Dev mode: serve dev/index.html with HMR
     return {
       root: resolve(__dirname, 'dev'),
-      plugins: [vue()],
+      plugins: [tailwindcss(), vue()],
       resolve: {
         alias: {
           '@': resolve(__dirname, 'src'),
@@ -21,7 +22,7 @@ export default defineConfig(({ command }) => {
 
   // Build mode: library
   return {
-    plugins: [vue()],
+    plugins: [tailwindcss(), vue()],
     build: {
       lib: {
         entry: resolve(__dirname, 'src/index.ts'),
