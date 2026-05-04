@@ -127,12 +127,12 @@ onUnmounted(() => {
     <Transition name="ft-backdrop">
       <div
         v-if="modelValue"
-        class="fixed inset-0 flex items-center justify-center"
+        class="ft:fixed ft:inset-0 ft:flex ft:items-center ft:justify-center"
         style="z-index: 1000"
       >
         <!-- Backdrop -->
         <div
-          class="absolute inset-0 bg-black/50 backdrop-blur-sm"
+          class="ft:absolute ft:inset-0 ft:bg-black/50 ft:backdrop-blur-sm"
           @click="close"
         />
 
@@ -140,38 +140,38 @@ onUnmounted(() => {
         <Transition name="ft-dialog">
           <div
             v-if="modelValue"
-            class="relative bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full mx-4 max-w-md max-h-[90vh] overflow-auto ft-modal-container"
+            class="ft:relative ft:bg-white ft:dark:bg-gray-800 ft:rounded-lg ft:shadow-xl ft:w-full ft:mx-4 ft:max-w-md ft:max-h-[90vh] ft:overflow-auto ft-modal-container"
           >
             <!-- Header -->
-            <div class="flex justify-between items-center px-4 py-3 border-b border-gray-200 dark:border-gray-700 sticky top-0 bg-white dark:bg-gray-800 z-10">
-              <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">
+            <div class="ft:flex ft:justify-between ft:items-center ft:px-4 ft:py-3 ft:border-b ft:border-gray-200 ft:dark:border-gray-700 ft:sticky ft:top-0 ft:bg-white ft:dark:bg-gray-800 ft:z-10">
+              <h3 class="ft:text-lg ft:font-medium ft:text-gray-900 ft:dark:text-gray-100">
                 {{ texts?.columnSettingsTitle ?? 'Column Settings' }}
               </h3>
               <button
                 @click="close"
-                class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-gray-700"
+                class="ft:text-gray-400 ft:hover:text-gray-600 ft:dark:hover:text-gray-300 ft:transition-colors ft:w-8 ft:h-8 ft:flex ft:items-center ft:justify-center ft:rounded-full ft:hover:bg-gray-100 ft:dark:hover:bg-gray-700"
               >
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="ft:w-4 ft:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
             </div>
 
             <!-- Body -->
-            <div class="p-4 space-y-1 max-h-[60vh] overflow-y-auto pr-1">
+            <div class="ft:p-4 ft:space-y-1 ft:max-h-[60vh] ft:overflow-y-auto ft:pr-1">
               <div v-if="headers.length">
-                <div ref="listRef" class="space-y-1">
+                <div ref="listRef" class="ft:space-y-1">
                   <div
                     v-for="header in headers"
                     :key="header.value"
                     data-col-row
-                    class="flex items-center gap-2 px-2.5 py-1.5 bg-gray-50 dark:bg-gray-700/50 ring-1 ring-gray-200 dark:ring-gray-600 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                    class="ft:flex ft:items-center ft:gap-2 ft:px-2.5 ft:py-1.5 ft:bg-gray-50 ft:dark:bg-gray-700/50 ft:ring-1 ft:ring-gray-200 ft:dark:ring-gray-600 ft:rounded-md ft:hover:bg-gray-100 ft:dark:hover:bg-gray-700 ft:transition-colors"
                   >
                     <!-- Drag handle -->
                     <div
-                      class="ft-drag-handle cursor-move text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 flex-shrink-0"
+                      class="ft-drag-handle ft:cursor-move ft:text-gray-400 ft:dark:text-gray-500 ft:hover:text-gray-600 ft:dark:hover:text-gray-300 ft:flex-shrink-0"
                     >
-                      <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
+                      <svg class="ft:w-3.5 ft:h-3.5" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M7 2a2 2 0 10.001 4.001A2 2 0 007 2zm0 6a2 2 0 10.001 4.001A2 2 0 007 8zm0 6a2 2 0 10.001 4.001A2 2 0 007 14zm6-8a2 2 0 10-.001-4.001A2 2 0 0013 6zm0 2a2 2 0 10.001 4.001A2 2 0 0013 8zm0 6a2 2 0 10.001 4.001A2 2 0 0013 14z" />
                       </svg>
                     </div>
@@ -181,71 +181,71 @@ onUnmounted(() => {
                       type="checkbox"
                       :checked="header.visible !== false"
                       @change="toggleColumnVisibility(header)"
-                      class="rounded border-gray-300 dark:border-gray-600 text-blue-600 focus:ring-blue-500 dark:bg-gray-600 w-3.5 h-3.5 flex-shrink-0"
+                      class="ft:rounded ft:border ft:border-gray-300 ft:dark:border-gray-600 ft:text-blue-600 ft:focus:ring-blue-500 ft:dark:bg-gray-600 ft:w-3.5 ft:h-3.5 ft:flex-shrink-0"
                     />
 
                     <!-- Column name -->
                     <span
-                      class="flex-1 text-xs font-medium text-gray-700 dark:text-gray-200 truncate min-w-0"
+                      class="ft:flex-1 ft:text-xs ft:font-medium ft:text-gray-700 ft:dark:text-gray-200 ft:truncate ft:min-w-0"
                     >{{ header.text || header.value }}</span>
 
                     <!-- Width input -->
-                    <div class="flex items-center gap-1 flex-shrink-0">
+                    <div class="ft:flex ft:items-center ft:gap-1 ft:flex-shrink-0">
                       <input
                         type="number"
                         :value="header.width || 100"
                         @input="updateColumnWidth(header, $event)"
                         min="50"
                         max="500"
-                        class="w-14 px-1.5 py-0.5 text-xs border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-1 focus:ring-blue-500 bg-white dark:bg-gray-600 text-gray-700 dark:text-gray-100"
+                        class="ft:w-14 ft:px-1.5 ft:py-0.5 ft:text-xs ft:border ft:border-gray-300 ft:dark:border-gray-600 ft:rounded ft:focus:outline-none ft:focus:ring-1 ft:focus:ring-blue-500 ft:bg-white ft:dark:bg-gray-600 ft:text-gray-700 ft:dark:text-gray-100"
                       >
-                      <span class="text-[10px] text-gray-400 dark:text-gray-500">
+                      <span class="ft:text-[10px] ft:text-gray-400 ft:dark:text-gray-500">
                         {{ texts?.widthLabel ?? 'px' }}
                       </span>
                     </div>
                   </div>
                 </div>
               </div>
-              <div v-else class="text-center text-gray-500 dark:text-gray-400 py-4">
+              <div v-else class="ft:text-center ft:text-gray-500 ft:dark:text-gray-400 ft:py-4">
                 {{ texts?.noColumnsText ?? 'No columns to configure' }}
               </div>
             </div>
 
             <!-- Quick actions -->
-            <div class="px-4 pb-4 pt-3 border-t border-gray-200 dark:border-gray-700">
-              <div class="grid grid-cols-3 gap-1.5 mb-1.5">
+            <div class="ft:px-4 ft:pb-4 ft:pt-3 ft:border-t ft:border-gray-200 ft:dark:border-gray-700">
+              <div class="ft:grid ft:grid-cols-3 ft:gap-1.5 ft:mb-1.5">
                 <button
                   @click="showAllColumns"
-                  class="px-2 py-1.5 text-xs bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded-md hover:bg-green-100 dark:hover:bg-green-900/50 transition-colors"
+                  class="ft:px-2 ft:py-1.5 ft:text-xs ft:bg-green-50 ft:dark:bg-green-900/30 ft:text-green-700 ft:dark:text-green-300 ft:rounded-md ft:hover:bg-green-100 ft:dark:hover:bg-green-900/50 ft:transition-colors"
                 >
                   {{ texts?.showAllText ?? 'Show all' }}
                 </button>
                 <button
                   @click="hideAllColumns"
-                  class="px-2 py-1.5 text-xs bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-300 rounded-md hover:bg-red-100 dark:hover:bg-red-900/50 transition-colors"
+                  class="ft:px-2 ft:py-1.5 ft:text-xs ft:bg-red-50 ft:dark:bg-red-900/30 ft:text-red-700 ft:dark:text-red-300 ft:rounded-md ft:hover:bg-red-100 ft:dark:hover:bg-red-900/50 ft:transition-colors"
                 >
                   {{ texts?.hideAllText ?? 'Hide all' }}
                 </button>
                 <button
                   @click="resetColumnWidths"
-                  class="px-2 py-1.5 text-xs bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-md hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-colors"
+                  class="ft:px-2 ft:py-1.5 ft:text-xs ft:bg-blue-50 ft:dark:bg-blue-900/30 ft:text-blue-700 ft:dark:text-blue-300 ft:rounded-md ft:hover:bg-blue-100 ft:dark:hover:bg-blue-900/50 ft:transition-colors"
                 >
                   {{ texts?.resetWidthsText ?? 'Reset widths' }}
                 </button>
               </div>
               <button
                 @click="resetAllSettings"
-                class="w-full px-2 py-1.5 text-xs bg-orange-50 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 rounded-md hover:bg-orange-100 dark:hover:bg-orange-900/50 transition-colors"
+                class="ft:w-full ft:px-2 ft:py-1.5 ft:text-xs ft:bg-orange-50 ft:dark:bg-orange-900/30 ft:text-orange-700 ft:dark:text-orange-300 ft:rounded-md ft:hover:bg-orange-100 ft:dark:hover:bg-orange-900/50 ft:transition-colors"
               >
                 {{ texts?.resetAllText ?? 'Reset all' }}
               </button>
             </div>
 
             <!-- Footer -->
-            <div class="px-4 pb-4 pt-2 border-t border-gray-200 dark:border-gray-700 flex justify-end">
+            <div class="ft:px-4 ft:pb-4 ft:pt-2 ft:border-t ft:border-gray-200 ft:dark:border-gray-700 ft:flex ft:justify-end">
               <button
                 @click="close"
-                class="px-3 py-1.5 text-xs bg-gray-500 dark:bg-gray-600 text-white rounded-md hover:bg-gray-600 dark:hover:bg-gray-700 transition-colors"
+                class="ft:px-3 ft:py-1.5 ft:text-xs ft:bg-gray-500 ft:dark:bg-gray-600 ft:text-white ft:rounded-md ft:hover:bg-gray-600 ft:dark:hover:bg-gray-700 ft:transition-colors"
               >
                 {{ texts?.closeText ?? 'Close' }}
               </button>

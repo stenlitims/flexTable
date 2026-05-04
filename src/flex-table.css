@@ -1,7 +1,10 @@
-@import "tailwindcss";
+/* Тільки theme + utilities: без Tailwind Preflight, щоб не глобально скидати * / html / button у хост-застосунку */
+@import "tailwindcss/theme.css" prefix(ft);
 
 /* Manual dark mode (class on html), same as typical admin apps */
 @custom-variant dark (&:where(.dark, .dark *));
 
 /* Scan only this package’s Vue SFCs — produces a self-contained CSS file for npm */
 @source "./components/**/*.vue";
+
+@import "tailwindcss/utilities.css" prefix(ft);

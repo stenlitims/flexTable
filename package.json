@@ -1,6 +1,6 @@
 {
   "name": "flex-table-vue",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "A flexible, feature-rich Vue 3 data table component with sorting, virtual scrolling, and interactive column management. Ships a pre-built CSS bundle (flex-table-vue/style.css): Tailwind v4 utilities compiled in-repo, then @layer blocks flattened for compatibility with host apps that run Tailwind v3 PostCSS on node_modules. Supports client-side and server-side sorting, drag-and-drop column reordering (SortableJS), per-column visibility and width controls, localStorage persistence, and customizable text labels. Fully typed with TypeScript.",
   "type": "module",
   "main": "./dist/flex-table-vue.umd.cjs",

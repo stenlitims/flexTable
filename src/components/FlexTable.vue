@@ -239,11 +239,11 @@ function onUpdateSettingsHeaders(newHeaders: TableHeader[]) {
 </script>
 
 <template>
-  <div class="group/ft relative">
+  <div class="ft:group/flextbl ft:relative">
     <!-- Table wrapper -->
     <div
-      class="overflow-x-auto rounded-lg bg-white dark:bg-gray-800 shadow-sm ring-1 ring-gray-200 dark:ring-gray-700 relative"
-      :class="{ 'overflow-y-auto': virtualScroll }"
+      class="ft:overflow-x-auto ft:rounded-lg ft:bg-white ft:dark:bg-gray-800 ft:shadow-sm ft:ring-1 ft:ring-gray-200 ft:dark:ring-gray-700 ft:relative"
+      :class="{ 'ft:overflow-y-auto': virtualScroll }"
       :style="virtualScroll ? { maxHeight: virtualScrollMaxHeight } : undefined"
       ref="scrollContainerRef"
       @scroll="virtualScroll ? onScroll() : undefined"
@@ -251,11 +251,11 @@ function onUpdateSettingsHeaders(newHeaders: TableHeader[]) {
       <!-- Column settings button — visible on hover -->
       <button
         @click="toggleColumnSettings"
-        class="absolute top-1.5 right-1.5 z-10 w-6 h-6 opacity-0 group-hover/ft:opacity-100 focus:opacity-100 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm hover:bg-gray-100 dark:hover:bg-gray-700 ring-1 ring-gray-200 dark:ring-gray-600 rounded-md flex items-center justify-center transition-all duration-200"
+        class="ft:absolute ft:top-1.5 ft:right-1.5 ft:z-10 ft:w-6 ft:h-6 ft:opacity-0 ft:group-hover/flextbl:opacity-100 ft:focus:opacity-100 ft:bg-white/90 ft:dark:bg-gray-800/90 ft:backdrop-blur-sm ft:hover:bg-gray-100 ft:dark:hover:bg-gray-700 ft:ring-1 ft:ring-gray-200 ft:dark:ring-gray-600 ft:rounded-md ft:flex ft:items-center ft:justify-center ft:transition-all ft:duration-200"
         :title="texts?.columnSettingsTitle ?? 'Column Settings'"
       >
         <svg
-          class="w-3.5 h-3.5 text-gray-500 dark:text-gray-400"
+          class="ft:w-3.5 ft:h-3.5 ft:text-gray-500 ft:dark:text-gray-400"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -269,8 +269,8 @@ function onUpdateSettingsHeaders(newHeaders: TableHeader[]) {
         </svg>
       </button>
 
-      <table class="w-full text-xs md:text-sm" style="table-layout: fixed">
-        <thead class="bg-gray-50 dark:bg-gray-700 sticky top-0 z-[1]">
+      <table class="ft:w-full ft:text-xs ft:md:text-sm" style="table-layout: fixed">
+        <thead class="ft:bg-gray-50 ft:dark:bg-gray-700 ft:sticky ft:top-0 ft:z-[1]">
           <tr>
             <th
               v-for="header in visibleHeaders"
@@ -280,25 +280,25 @@ function onUpdateSettingsHeaders(newHeaders: TableHeader[]) {
                 maxWidth: (header.width || 100) + 'px',
               }"
               :class="[
-                'px-2.5 py-2 text-left text-[11px] md:text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400 overflow-hidden border-b border-gray-200 dark:border-gray-700 select-none',
-                header.sortable !== false && header.sortable ? 'cursor-pointer hover:text-gray-700 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors' : 'cursor-default',
+                'ft:px-2.5 ft:py-2 ft:text-left ft:text-[11px] ft:md:text-xs ft:font-semibold ft:uppercase ft:tracking-wider ft:text-gray-500 ft:dark:text-gray-400 ft:overflow-hidden ft:border-b ft:border-gray-200 ft:dark:border-gray-700 ft:select-none',
+                header.sortable !== false && header.sortable ? 'ft:cursor-pointer ft:hover:text-gray-700 ft:dark:hover:text-gray-200 ft:hover:bg-gray-100 ft:dark:hover:bg-gray-700 ft:transition-colors' : 'ft:cursor-default',
               ]"
               @click="sort(header)"
             >
-              <div class="flex items-center gap-1 min-w-0">
-                <span class="truncate">
+              <div class="ft:flex ft:items-center ft:gap-1 ft:min-w-0">
+                <span class="ft:truncate">
                   <slot :name="`header-${header.value}`" :header="header">
                     {{ header.text }}
                   </slot>
                 </span>
                 <span
                   v-if="header.sortable && sortTable?.by === header.value"
-                  class="flex-shrink-0 text-[10px] text-gray-400 dark:text-gray-500"
+                  class="ft:flex-shrink-0 ft:text-[10px] ft:text-gray-400 ft:dark:text-gray-500"
                 >
-                  <svg v-if="sortTable?.dir === 'asc'" class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg v-if="sortTable?.dir === 'asc'" class="ft:w-3 ft:h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 15l7-7 7 7" />
                   </svg>
-                  <svg v-else class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg v-else class="ft:w-3 ft:h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
                   </svg>
                 </span>
@@ -306,7 +306,7 @@ function onUpdateSettingsHeaders(newHeaders: TableHeader[]) {
             </th>
           </tr>
         </thead>
-        <tbody class="divide-y divide-gray-100 dark:divide-gray-700/50">
+        <tbody class="ft:divide-y ft:divide-gray-100 ft:dark:divide-gray-700/50">
           <!-- Virtual scroll spacer (top) -->
           <tr v-if="virtualScroll && topSpacerHeight > 0" aria-hidden="true">
             <td :style="{ height: topSpacerHeight + 'px', padding: 0, border: 'none' }" :colspan="visibleHeaders.length" />
@@ -316,7 +316,7 @@ function onUpdateSettingsHeaders(newHeaders: TableHeader[]) {
             v-for="item in renderedItems"
             :key="String(item[keyRow] ?? item)"
             :class="[
-              'hover:bg-gray-50/80 dark:hover:bg-gray-700/40 cursor-pointer transition-colors duration-100',
+              'ft:hover:bg-gray-50/80 ft:dark:hover:bg-gray-700/40 ft:cursor-pointer ft:transition-colors ft:duration-100',
               (item as any)._rowClass || '',
             ]"
             :style="virtualScroll ? { height: rowHeight + 'px' } : undefined"
@@ -329,9 +329,9 @@ function onUpdateSettingsHeaders(newHeaders: TableHeader[]) {
                 width: (header.width || 100) + 'px',
                 maxWidth: (header.width || 100) + 'px',
               }"
-              class="px-2.5 py-1.5 text-gray-700 dark:text-gray-200 overflow-hidden"
+              class="ft:px-2.5 ft:py-1.5 ft:text-gray-700 ft:dark:text-gray-200 ft:overflow-hidden"
             >
-              <div class="truncate" :title="String(item[header.value] ?? '')">
+              <div class="ft:truncate" :title="String(item[header.value] ?? '')">
                 <slot
                   :name="`cell-${header.value}`"
                   :item="item"
@@ -352,13 +352,13 @@ function onUpdateSettingsHeaders(newHeaders: TableHeader[]) {
           <tr v-if="!sortedItems?.length">
             <td
               :colspan="visibleHeaders.length"
-              class="text-center py-8 text-gray-400 dark:text-gray-500"
+              class="ft:text-center ft:py-8 ft:text-gray-400 ft:dark:text-gray-500"
             >
-              <div class="flex flex-col items-center gap-1.5">
-                <svg class="w-8 h-8 text-gray-300 dark:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div class="ft:flex ft:flex-col ft:items-center ft:gap-1.5">
+                <svg class="ft:w-8 ft:h-8 ft:text-gray-300 ft:dark:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
                 </svg>
-                <span class="text-sm">{{ texts?.emptyText ?? 'No data' }}</span>
+                <span class="ft:text-sm">{{ texts?.emptyText ?? 'No data' }}</span>
               </div>
             </td>
           </tr>

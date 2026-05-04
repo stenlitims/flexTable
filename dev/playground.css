@@ -2,5 +2,5 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-@source "../src/components/**/*.vue";
+/* Library components сканує лише src/flex-table.css (префікс ft:), щоб не дублювати безпрефіксні утиліти */
 @source "./**/*.vue";
