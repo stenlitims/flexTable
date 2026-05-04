@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { watch, onMounted, onUnmounted } from 'vue'
-import draggable from 'vuedraggable'
+import { watch, onMounted, onUnmounted, ref, nextTick } from 'vue'
+import Sortable from 'sortablejs'
 import type { TableHeader, FlexTableTexts } from '../types'
 
 const props = withDefaults(defineProps<{
@@ -15,6 +15,38 @@ const emit = defineEmits<{
   'update:modelValue': [value: boolean]
   'update:headers': [value: TableHeader[]]
 }>()
+
+const listRef = ref<HTMLElement | null>(null)
+let sortableInstance: Sortable | null = null
+
+function destroySortable() {
+  sortableInstance?.destroy()
+  sortableInstance = null
+}
+
+function bindSortable() {
+  destroySortable()
+  const el = listRef.value
+  if (!el || !props.headers.length)
+    return
+
+  sortableInstance = new Sortable(el, {
+    animation: 150,
+    handle: '.ft-drag-handle',
+    draggable: '[data-col-row]',
+    onEnd(evt: Sortable.SortableEvent) {
+      const oi = evt.oldIndex
+      const ni = evt.newIndex
+      if (oi === undefined || ni === undefined || oi === ni)
+        return
+      const next = [...props.headers]
+      const [moved] = next.splice(oi, 1)
+      next.splice(ni, 0, moved)
+      emit('update:headers', next)
+      nextTick(() => bindSortable())
+    },
+  })
+}
 
 function close() {
   emit('update:modelValue', false)
@@ -33,11 +65,7 @@ function toggleColumnVisibility(header: TableHeader) {
 
 function updateColumnWidth(header: TableHeader, event: Event) {
   const target = event.target as HTMLInputElement
-  header.width = parseInt(target.value) || 100
-  emit('update:headers', [...props.headers])
-}
-
-function onDragEnd() {
+  header.width = Number.parseInt(target.value, 10) || 100
   emit('update:headers', [...props.headers])
 }
 
@@ -70,11 +98,15 @@ function resetAllSettings() {
 
 watch(
   () => props.modelValue,
-  (isOpen) => {
+  async (isOpen) => {
     if (isOpen) {
       document.body.style.overflow = 'hidden'
-    } else {
+      await nextTick()
+      bindSortable()
+    }
+    else {
       document.body.style.overflow = ''
+      destroySortable()
     }
   },
 )
@@ -86,6 +118,7 @@ onMounted(() => {
 onUnmounted(() => {
   document.removeEventListener('keydown', handleKeyDown)
   document.body.style.overflow = ''
+  destroySortable()
 })
 </script>
 
@@ -127,56 +160,51 @@ onUnmounted(() => {
             <!-- Body -->
             <div class="p-4 space-y-1 max-h-[60vh] overflow-y-auto pr-1">
               <div v-if="headers.length">
-                <draggable
-                  :model-value="headers"
-                  @update:model-value="(val: TableHeader[]) => emit('update:headers', val)"
-                  @end="onDragEnd"
-                  item-key="value"
-                  class="space-y-1"
-                >
-                  <template #item="{ element: header }">
+                <div ref="listRef" class="space-y-1">
+                  <div
+                    v-for="header in headers"
+                    :key="header.value"
+                    data-col-row
+                    class="flex items-center gap-2 px-2.5 py-1.5 bg-gray-50 dark:bg-gray-700/50 ring-1 ring-gray-200 dark:ring-gray-600 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                  >
+                    <!-- Drag handle -->
                     <div
-                      class="flex items-center gap-2 px-2.5 py-1.5 bg-gray-50 dark:bg-gray-700/50 ring-1 ring-gray-200 dark:ring-gray-600 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                      class="ft-drag-handle cursor-move text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 flex-shrink-0"
                     >
-                      <!-- Drag handle -->
-                      <div
-                        class="cursor-move text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 flex-shrink-0"
-                      >
-                        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
-                          <path d="M7 2a2 2 0 10.001 4.001A2 2 0 007 2zm0 6a2 2 0 10.001 4.001A2 2 0 007 8zm0 6a2 2 0 10.001 4.001A2 2 0 007 14zm6-8a2 2 0 10-.001-4.001A2 2 0 0013 6zm0 2a2 2 0 10.001 4.001A2 2 0 0013 8zm0 6a2 2 0 10.001 4.001A2 2 0 0013 14z" />
-                        </svg>
-                      </div>
-
-                      <!-- Visibility checkbox -->
-                      <input
-                        type="checkbox"
-                        :checked="header.visible !== false"
-                        @change="toggleColumnVisibility(header)"
-                        class="rounded border-gray-300 dark:border-gray-600 text-blue-600 focus:ring-blue-500 dark:bg-gray-600 w-3.5 h-3.5 flex-shrink-0"
-                      />
-
-                      <!-- Column name -->
-                      <span
-                        class="flex-1 text-xs font-medium text-gray-700 dark:text-gray-200 truncate min-w-0"
-                      >{{ header.text || header.value }}</span>
-
-                      <!-- Width input -->
-                      <div class="flex items-center gap-1 flex-shrink-0">
-                        <input
-                          type="number"
-                          :value="header.width || 100"
-                          @input="updateColumnWidth(header, $event)"
-                          min="50"
-                          max="500"
-                          class="w-14 px-1.5 py-0.5 text-xs border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-1 focus:ring-blue-500 bg-white dark:bg-gray-600 text-gray-700 dark:text-gray-100"
-                        />
-                        <span class="text-[10px] text-gray-400 dark:text-gray-500">
-                          {{ texts?.widthLabel ?? 'px' }}
-                        </span>
-                      </div>
+                      <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M7 2a2 2 0 10.001 4.001A2 2 0 007 2zm0 6a2 2 0 10.001 4.001A2 2 0 007 8zm0 6a2 2 0 10.001 4.001A2 2 0 007 14zm6-8a2 2 0 10-.001-4.001A2 2 0 0013 6zm0 2a2 2 0 10.001 4.001A2 2 0 0013 8zm0 6a2 2 0 10.001 4.001A2 2 0 0013 14z" />
+                      </svg>
                     </div>
-                  </template>
-                </draggable>
+
+                    <!-- Visibility checkbox -->
+                    <input
+                      type="checkbox"
+                      :checked="header.visible !== false"
+                      @change="toggleColumnVisibility(header)"
+                      class="rounded border-gray-300 dark:border-gray-600 text-blue-600 focus:ring-blue-500 dark:bg-gray-600 w-3.5 h-3.5 flex-shrink-0"
+                    />
+
+                    <!-- Column name -->
+                    <span
+                      class="flex-1 text-xs font-medium text-gray-700 dark:text-gray-200 truncate min-w-0"
+                    >{{ header.text || header.value }}</span>
+
+                    <!-- Width input -->
+                    <div class="flex items-center gap-1 flex-shrink-0">
+                      <input
+                        type="number"
+                        :value="header.width || 100"
+                        @input="updateColumnWidth(header, $event)"
+                        min="50"
+                        max="500"
+                        class="w-14 px-1.5 py-0.5 text-xs border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-1 focus:ring-blue-500 bg-white dark:bg-gray-600 text-gray-700 dark:text-gray-100"
+                      >
+                      <span class="text-[10px] text-gray-400 dark:text-gray-500">
+                        {{ texts?.widthLabel ?? 'px' }}
+                      </span>
+                    </div>
+                  </div>
+                </div>
               </div>
               <div v-else class="text-center text-gray-500 dark:text-gray-400 py-4">
                 {{ texts?.noColumnsText ?? 'No columns to configure' }}

@@ -26,7 +26,7 @@ npm install flex-table-vue
 
 - Vue 3.5+
 - Tailwind CSS 3+ configured in your project
-- `vuedraggable` is listed as a dependency of this package (used for column reordering); your bundler resolves it next to `flex-table-vue`.
+- Column reordering in the settings modal uses **SortableJS**, bundled inside `flex-table-vue` (no separate `vuedraggable` install).
 
 ## Usage
 

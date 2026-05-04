@@ -48,7 +48,7 @@ npm install flex-table-vue
 
 ```ts
 import { FlexTable } from 'flex-table-vue'
-import 'flex-table-vue/dist/flex-table-vue.css'
+import 'flex-table-vue/style.css'
 ```
 
 - Pass **`headers`** and **`items`**; use **`v-model:sort-table`** when sorting is needed.

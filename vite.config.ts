@@ -29,14 +29,13 @@ export default defineConfig(({ command }) => {
         fileName: 'flex-table-vue',
       },
       rollupOptions: {
-        // Не інлайнити vuedraggable: його UMD-обгортка зливає імпорт Vue у `import sn from "vue"`,
-        // що ламається з vue.runtime.esm-bundler (немає default export).
-        external: ['vue', 'vuedraggable'],
+        // Лише Vue зовнішній; sortablejs збираємо в бандл (коректний ESM). vuedraggable не використовуємо —
+        // його UMD очікує default export з Vue, що ламає Vite + vue.runtime.esm-bundler.
+        external: ['vue'],
         output: {
           exports: 'named',
           globals: {
             vue: 'Vue',
-            vuedraggable: 'VueDraggable',
           },
         },
       },
